@@ -1,0 +1,14 @@
+{
+    "name": "api/api",
+    "authors": [
+        {
+            "name": "Marco Silva",
+            "email": "marcoaurelio.fs@hotmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { 
+            "Api\\": "class/"
+        }
+    }
+}
