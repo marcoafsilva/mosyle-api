@@ -4,9 +4,9 @@ namespace Api\Config;
 
 class Config
 {
-    public const DB_HOST = 'localhost';
-    public const DB_USER = 'root';
-    public const DB_PASS = 'root';
-    public const DB_BASE = 'mosyle-api';
-    public const DB_PORT = '9906';
+    const DB_HOST = '192.168.64.2';
+    const DB_USER = 'root';
+    const DB_PASS = 'root';
+    const DB_BASE = 'mosyle_api';
+    const DB_PORT = '9906';
 }

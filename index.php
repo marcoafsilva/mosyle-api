@@ -2,7 +2,8 @@
 
 namespace Api;
 
-require __DIR__ . '/vendor/autoload.php';
+// -------- Composer autoload require
+    require __DIR__ . '/vendor/autoload.php';
 
 
 // -------- Uses
@@ -13,6 +14,7 @@ require __DIR__ . '/vendor/autoload.php';
     use Api\Request\{Request};
     use Api\Database\{Database};
 
+    $db = Database::getInstance();
 
 
 // -------- Router and Request class
