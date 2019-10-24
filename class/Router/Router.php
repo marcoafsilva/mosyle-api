@@ -12,6 +12,8 @@ class Router
 
     public function on($method, $path, $callback)
     {
+        $method = strtoupper($method);
+
         if (!EnumMethods::isValid($method)) {
             $this->routes[$method] = [];
             echo "error";
@@ -29,7 +31,7 @@ class Router
     public function run()
     {
         $method = $_SERVER['REQUEST_METHOD'];
-        $uri = preg_replace("/\/api\//i", "", $_SERVER['REQUEST_URI']);
+        $uri = preg_replace("/\/mosyle-api\//i", "", $_SERVER['REQUEST_URI']);
 
         foreach ($this->routes[$method] as $route => $callback) {
             if (preg_match($route, $uri, $parameters)) {
@@ -40,5 +42,10 @@ class Router
         }
 
         return Response::output(HttpStatus::NOT_FOUND);
+    }
+
+    public function __call($name, $arguments)
+    {
+        $this->on($name, $arguments[0], $arguments[1]);
     }
 }

@@ -4,26 +4,43 @@ namespace Api;
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Api\Response\{HttpStatus, Response};
-use Api\Router\{Router, EnumMethods};
-use Api\Models\User\{User};
 
-$router = new Router();
-
-// Main
-$router->on(EnumMethods::GET, '', function(){
-    Response::output(HttpStatus::SUCCESS);
-});
-
-// Get Users
-$router->on(EnumMethods::GET, 'users(/{\d+})?', function($userId = null){
-    echo "Get user(s): " . $userId ?? '';
-});
+// -------- Uses
+    use Api\Util\Util;
+    use Api\Response\{HttpStatus, Response};
+    use Api\Router\{Router};
+    use Api\Models\User\{User};
+    use Api\Request\{Request};
+    use Api\Database\{Database};
 
 
-$router->on(EnumMethods::POST, 'teste/{\w+}', function($params){
-    echo "POST require!<br>";
-    var_dump($params);
-});
 
-$router->run();
+// -------- Router and Request class
+    $router = new Router();
+    $res = new Request();
+
+
+
+// -------- Routes
+    // Main
+    $router->get('.*', function () use ($res) {
+        Response::output(HttpStatus::SUCCESS, $res->getParams());
+    });
+
+    // Get Users
+    $router->post('users', function () use ($res) {
+
+    });
+
+    $router->get('users(/{\d+})?', function () use ($res) {
+        echo "Get user(s): " . $res->ola ?? '';
+    });
+
+    $router->post('teste/{\w+}', function ($params) use ($res) {
+        echo "POST require!<br>";
+        var_dump($params);
+    });
+
+
+// -------- Running App
+    $router->run();
