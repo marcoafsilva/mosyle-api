@@ -4,7 +4,7 @@ namespace Api\Response;
 
 class Response
 {
-    public static function output($code, $message = null)
+    public static function output($code, $message = null, $payload = null)
     {
         $msg = $message ?? $code['msg'];
         $code = is_array($code) ? $code['code'] : $code;
@@ -13,6 +13,8 @@ class Response
 
         $response['code'] = $code;
         $response['msg'] = $msg;
+        if ($payload)
+            $response['payload'] = $payload;
 
         echo json_encode($response);
     }

@@ -26,6 +26,7 @@ class Database
                 ]);
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $db->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_EMPTY_STRING);
+                $db->exec("SET SESSION time_zone = 'America/Sao_Paulo';");
             } catch (\Exception $e) {
                 die(Response::output(500, $e->getMessage()));
             }

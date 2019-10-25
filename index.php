@@ -4,28 +4,29 @@ namespace Api;
 
 // -------- Composer autoload require
     require __DIR__ . '/vendor/autoload.php';
-
-
-// -------- Uses
-
+    
+    
+    // -------- Uses
+    
     use Api\Util\Util;
     use Api\Response\{HttpStatus, Response};
-    use Api\Router\{Router};
+    use Api\Router\{EnumMethods, Router};
     use Api\Request\{Request};
     use Api\Database\{Database};
     use Api\Controllers\Auth\AuthController;
     use Api\Controllers\User\UserController;
-
-    $db = Database::getInstance();
-
-
-// -------- Router and Request class
-    $router = new Router();
+    
+    
+    
+    // -------- Router, Request, Database classes
     $req = new Request();
+    $router = new Router();
+    $db = Database::getInstance();
+    date_default_timezone_set('America/Sao_Paulo');
 
 // -------- Routes
     // Main
-    $router->get('.*', function () use ($req) {
+    $router->get('', function () use ($req) {
         Response::output(HttpStatus::SUCCESS);
     });
 
@@ -39,10 +40,29 @@ namespace Api;
         AuthController::login();
     });
 
-    $router->get('users(/{\d+})?', function () use ($req) {
-        echo "Get user(s): " . $req->ola ?? '';
+    // Get user data
+    $router->get('users(/{\d+})?', function ($userId = null) use ($req) {
+        $req->userId = $userId;
+        UserController::getUser();
     });
 
+    // Edit user data
+    $router->put('users/{\d+}', function ($userId) use ($req) {
+        $req->userId = $userId;
+        UserController::editUser();
+    });
+
+    // Remove user data
+    $router->delete('users/{\d+}', function ($userId) use ($req) {
+        $req->userId = $userId;
+        UserController::removeUser();
+    });
+
+    // Register that user drink water
+    $router->post('users/{\d+}/drink', function ($userId) use ($req) {
+        $req->userId = $userId;
+        UserController::drinkWater();
+    });
 
 
 // -------- Running App

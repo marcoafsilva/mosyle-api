@@ -23,7 +23,7 @@ class Request
 
     public function __set($name, $value)
     {
-        $this->params[$name] = $value;
+        $this->params->{$name} = $value;
         return $this;
     }
 
@@ -52,6 +52,7 @@ class Request
                 break;
 
             case EnumMethods::POST:
+            case EnumMethods::PUT:
                 $params = json_decode(file_get_contents('php://input'));
                 break;
 
