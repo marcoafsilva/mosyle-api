@@ -4,9 +4,9 @@ namespace Api\Config;
 
 class Config
 {
-    const DB_HOST = '192.168.64.2';
-    const DB_USER = 'root';
-    const DB_PASS = 'root';
-    const DB_BASE = 'mosyle_api';
-    const DB_PORT = '9906';
+    const DB_HOST = '216.172.172.93';
+    const DB_USER = 'psico770_mosyle';
+    const DB_PASS = 'mosyle';
+    const DB_BASE = 'psico770_mosyle_api';
+    const DB_PORT = '3306';
 }

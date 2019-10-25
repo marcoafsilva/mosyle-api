@@ -7,41 +7,42 @@ namespace Api;
 
 
 // -------- Uses
+
     use Api\Util\Util;
     use Api\Response\{HttpStatus, Response};
     use Api\Router\{Router};
-    use Api\Models\User\{User};
     use Api\Request\{Request};
     use Api\Database\{Database};
+    use Api\Controllers\Auth\AuthController;
+    use Api\Controllers\User\UserController;
 
     $db = Database::getInstance();
 
 
 // -------- Router and Request class
     $router = new Router();
-    $res = new Request();
-
-
+    $req = new Request();
 
 // -------- Routes
     // Main
-    $router->get('.*', function () use ($res) {
-        Response::output(HttpStatus::SUCCESS, $res->getParams());
+    $router->get('.*', function () use ($req) {
+        Response::output(HttpStatus::SUCCESS);
     });
 
-    // Get Users
-    $router->post('users', function () use ($res) {
-
+    // Create new user
+    $router->post('users', function () use ($req) {
+        UserController::newUser();
     });
 
-    $router->get('users(/{\d+})?', function () use ($res) {
-        echo "Get user(s): " . $res->ola ?? '';
+    // Login (Get token)
+    $router->post('login', function () use ($req) {
+        AuthController::login();
     });
 
-    $router->post('teste/{\w+}', function ($params) use ($res) {
-        echo "POST require!<br>";
-        var_dump($params);
+    $router->get('users(/{\d+})?', function () use ($req) {
+        echo "Get user(s): " . $req->ola ?? '';
     });
+
 
 
 // -------- Running App
